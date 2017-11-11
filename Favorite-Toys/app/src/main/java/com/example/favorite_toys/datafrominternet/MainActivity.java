@@ -10,6 +10,8 @@ package com.example.favorite_toys.datafrominternet;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.favorite_toys.R;
+import com.example.favorite_toys.datafrominternet.recyclerview.GreenAdapter;
 import com.example.favorite_toys.datafrominternet.utilities.NetworkUtils;
 
 import java.io.IOException;
@@ -35,19 +38,35 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressBar mLoadingIndicator;
 
+    private static final int NUM_LIST_ITEMS = 100;
+
+    private GreenAdapter mAdapter;
+    private RecyclerView mNumbersList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSearchBoxEditText = (EditText) findViewById(R.id.et_search_box);
+//        mSearchBoxEditText = (EditText) findViewById(R.id.et_search_box);
+//
+//        mUrlDisplayTextView = (TextView) findViewById(R.id.tv_url_display);
+//        mSearchResultsTextView = (TextView) findViewById(R.id.tv_github_search_results_json);
+//
+//        mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
+//
+//        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
-        mUrlDisplayTextView = (TextView) findViewById(R.id.tv_url_display);
-        mSearchResultsTextView = (TextView) findViewById(R.id.tv_github_search_results_json);
+        mNumbersList = (RecyclerView) findViewById(R.id.rv_numbers);
 
-        mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mNumbersList.setLayoutManager(layoutManager);
 
-        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+        mNumbersList.setHasFixedSize(true);
+
+        mAdapter = new GreenAdapter(NUM_LIST_ITEMS);
+
+        mNumbersList.setAdapter(mAdapter);
     }
 
     private void makeGithubSearchQuery() {
