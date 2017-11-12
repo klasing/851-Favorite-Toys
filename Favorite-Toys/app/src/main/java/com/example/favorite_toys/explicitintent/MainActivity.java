@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                String textEntered = mNameEntry.getText().toString();
+
                 Context context = MainActivity.this;
 
                 Class destinationActivity = ChildActivity.class;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
 //                String message = "Button clicked!\nTODO: Start a new Activity and pass some data.";
 //                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+
+                startChildActivityIntent.putExtra(Intent.EXTRA_TEXT, textEntered);
 
                 startActivity(startChildActivityIntent);
             }
