@@ -3,6 +3,7 @@ package com.example.favorite_toys.implicitintents;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -38,7 +39,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickShareTextButton(View v) {
-        Toast.makeText(this, "TODO: Share text when this is clicked", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "TODO: Share text when this is clicked", Toast.LENGTH_LONG).show();
+        String textThatYouWantToShare =
+                "Sharing the coolest thing I've learned so far. You should " +
+                        "check out Udacity and Google's Android Nanodegree!";
+
+        shareText(textThatYouWantToShare);
     }
 
     public void createYourOwn(View v) {
@@ -66,5 +72,19 @@ public class MainActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
+    }
+
+    private void shareText(String textToShare) {
+        String mimeType = "text/plain";
+
+        String title = "Learning How to Share";
+
+        ShareCompat.IntentBuilder
+                /* The from method specifies the Context from which this share is coming from */
+                .from(this)
+                .setType(mimeType)
+                .setChooserTitle(title)
+                .setText(textToShare)
+                .startChooser();
     }
 }
