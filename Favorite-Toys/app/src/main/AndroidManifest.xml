@@ -12,15 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--<activity android:name=".datafrominternet.MainActivity">-->
-        <activity android:name=".explicitintent.MainActivity">
+        <!--<activity android:name=".explicitintent.MainActivity">-->
+        <activity android:name=".implicitintents.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".explicitintent.ChildActivity">
-        </activity>
+        <!--<activity android:name=".explicitintent.ChildActivity">
+        </activity>-->
     </application>
 
 </manifest>
