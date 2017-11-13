@@ -76,13 +76,10 @@ public class MainActivity extends AppCompatActivity implements
         //new GithubQueryTask().execute(githubSearchUrl);
 
         Bundle queryBundle = new Bundle();
-
         queryBundle.putString(SEARCH_QUERY_URL_EXTRA, githubSearchUrl.toString());
 
         LoaderManager loaderManager = getSupportLoaderManager();
-
         Loader<String> githubSearchLoader = loaderManager.getLoader(GITHUB_SEARCH_LOADER);
-
         if (githubSearchLoader == null) {
             loaderManager.initLoader(GITHUB_SEARCH_LOADER, queryBundle, this);
         } else {
@@ -91,22 +88,20 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void showJsonDataView() {
-        /* First, make sure the error is invisible */
         mErrorMessageDisplay.setVisibility(View.INVISIBLE);
-        /* Then, make sure the JSON data is visible */
         mSearchResultsTextView.setVisibility(View.VISIBLE);
     }
 
     private void showErrorMessage() {
-        /* First, hide the currently visible data */
         mSearchResultsTextView.setVisibility(View.INVISIBLE);
-        /* Then, show the error */
         mErrorMessageDisplay.setVisibility(View.VISIBLE);
     }
 
     @Override
     public Loader<String> onCreateLoader(int id, final Bundle args) {
         return new AsyncTaskLoader<String>(this) {
+
+            String mGithubJson;
 
             @Override
             protected void onStartLoading() {
@@ -117,7 +112,11 @@ public class MainActivity extends AppCompatActivity implements
 
                 mLoadingIndicator.setVisibility(View.VISIBLE);
 
-                forceLoad();
+                if (mGithubJson != null) {
+                    deliverResult(mGithubJson);
+                } else {
+                    forceLoad();
+                }
             }
 
             @Override
@@ -137,6 +136,12 @@ public class MainActivity extends AppCompatActivity implements
                     e.printStackTrace();
                     return null;
                 }
+            }
+
+            @Override
+            public void deliverResult(String githubJson) {
+                mGithubJson = githubJson;
+                super.deliverResult(githubJson);
             }
         };
     }
