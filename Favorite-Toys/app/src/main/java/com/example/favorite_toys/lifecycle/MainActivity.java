@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.example.favorite_toys.R;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mLifecycleDisplay;
 
+    private static final ArrayList<String> mLifecycleCallbacks = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
                 mLifecycleDisplay.setText(allPreviousLifecycleCallbacks);
             }
         }
+
+        for (int i = mLifecycleCallbacks.size() - 1; i >= 0; i--) {
+            mLifecycleDisplay.append(mLifecycleCallbacks.get(i) + "\n");
+        }
+
+        mLifecycleCallbacks.clear();
 
         logAndAppend(ON_CREATE);
     }
@@ -84,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         logAndAppend(ON_SAVE_INSTANCE_STATE);
 
-       String lifecycleDisplayTextViewContents = mLifecycleDisplay.getText().toString();
+        String lifecycleDisplayTextViewContents = mLifecycleDisplay.getText().toString();
         outState.putString(LIFECYCLE_CALLBACKS_TEXT_KEY, lifecycleDisplayTextViewContents);
     }
 
