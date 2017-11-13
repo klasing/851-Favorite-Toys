@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme">
         <!--<activity android:name=".datafrominternet.MainActivity">-->
         <!--<activity android:name=".explicitintent.MainActivity">-->
-        <activity android:name=".implicitintents.MainActivity">
+        <!--<activity android:name=".implicitintents.MainActivity">-->
+        <activity android:name=".lifecycle.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
