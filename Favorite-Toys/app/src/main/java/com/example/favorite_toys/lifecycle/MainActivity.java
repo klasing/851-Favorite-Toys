@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private static final String LIFECYCLE_CALLBACKS_TEXT_KEY = "callbacks";
+
     private static final String ON_CREATE = "onCreate";
     private static final String ON_START = "onStart";
     private static final String ON_RESUME = "onResume";
@@ -29,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mLifecycleDisplay = (TextView) findViewById(R.id.tv_lifecycle_events_display);
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(LIFECYCLE_CALLBACKS_TEXT_KEY)) {
+                String allPreviousLifecycleCallbacks = savedInstanceState
+                        .getString(LIFECYCLE_CALLBACKS_TEXT_KEY);
+                mLifecycleDisplay.setText(allPreviousLifecycleCallbacks);
+            }
+        }
 
         logAndAppend(ON_CREATE);
     }
@@ -66,6 +76,16 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         logAndAppend(ON_DESTROY);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        logAndAppend(ON_SAVE_INSTANCE_STATE);
+
+       String lifecycleDisplayTextViewContents = mLifecycleDisplay.getText().toString();
+        outState.putString(LIFECYCLE_CALLBACKS_TEXT_KEY, lifecycleDisplayTextViewContents);
     }
 
     private void logAndAppend(String lifecycleEvent) {
