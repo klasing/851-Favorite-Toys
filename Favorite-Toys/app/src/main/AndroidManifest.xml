@@ -14,7 +14,8 @@
         <!--<activity android:name=".datafrominternet.MainActivity">-->
         <!--<activity android:name=".explicitintent.MainActivity">-->
         <!--<activity android:name=".implicitintents.MainActivity">-->
-        <activity android:name=".lifecycle.MainActivity">
+        <!--<activity android:name=".lifecycle.MainActivity">-->
+        <activity android:name=".asynctaskloader.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
